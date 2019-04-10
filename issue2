@@ -1,0 +1,22 @@
+issue2: client was running into an issue while working with Hive , he was getting a 500 error with an HDFSAPIException, the query he was running "select * from table1;"
+
+SOlution:
+
+ROOT CAUSE: The user does not have a user directory in HDFS for the view to store metadata about the view
+
+The Hive View stores user metadata in HDFS. By default, the location in HDFS for this metadata is /user/${username} where ${username} is the username of the currently logged in user that is accessing the Hive View.
+
+Since many users leverage the default Ambari admin user for getting started with Ambari, the /user/admin folder needs to be created in HDFS. Therefore, be sure to create the admin user directory in HDFS using these instructions prior to using the view.
+
+RESOLUTION: Setup HDFS user directory
+Connect to a host in the cluster that includes the HDFS client.
+
+Switch to the hdfs system account user.
+
+su - hdfs
+Using the HDFS client, make an HDFS directory for the user. For example, if your username is admin, you would create the following directory.
+
+hadoop fs -mkdir /user/admin
+Set the ownership on the newly created directory. For example, if your username is admin, you would make that user the directory owner.
+
+hadoop fs -chown admin:hadoop /user/admin
