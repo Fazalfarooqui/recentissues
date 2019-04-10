@@ -1,0 +1,21 @@
+issue1: Vertex failed, vertexName=Map 1, vertexId=vertex_1554838787687_0011_62_00, diagnostics=... Hive
+Runtime Error while closing operators
+Solution: Increased the container size...
+yarn.scheduler.minimum-allocation-mb : 2048mb
+
+yarn.scheduler.maximum-allocation-mb : 5120mb
+
+hive.tez.container.size 2048 ----> 4000mb
+
+[root@node01 ~]# vmstat -s 8
+
+009212 K total memory
+
+3091192 K used memory
+
+3869668 K active memory
+
+2283236 K inactive memory
+
+723736 K free memory
+
